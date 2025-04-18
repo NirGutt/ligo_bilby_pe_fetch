@@ -1,3 +1,2 @@
 bilby
 bilby_pipe
-pickle

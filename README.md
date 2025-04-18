@@ -35,6 +35,19 @@ run_diagnostics_samples (int)   – Number of posterior samples used for diagnos
 
 ##  Available Functions
 
+Once we have the class,
+RPE = ligo_bilby_pe_fetch(
+    file_name,
+    waveform_name=None,
+    override_previous_run=False,
+    user='albert.einstein',
+    psd_files_dict=None,
+    shift_trigger_time=None,
+    run_diagnostics_samples=10
+)
+
+One can use it to call the following functions:
+
 - `RPE.get_interferometers()`  
   → Returns the interferometer data used in the analysis.
 

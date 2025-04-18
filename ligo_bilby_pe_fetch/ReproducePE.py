@@ -40,6 +40,7 @@ class ligo_bilby_pe_fetch:
         self.psd_files_dict=psd_files_dict
         self.shift_trigger_time=shift_trigger_time
         self.user=user
+        self.diag_res=None
         if self.shift_trigger_time is not None:
             print('skipping diagnostics a shifted trigger detected')
             self.run_diagnoostics_samples=0
@@ -54,6 +55,8 @@ class ligo_bilby_pe_fetch:
         if self.run_diagnoostics_samples>0:
             self._run_diagnostics()
 
+    def get_diagnostics_result(self):
+        return self.diag_res
 
     def _run_diagnostics(self):
         import pandas as pd
@@ -108,13 +111,18 @@ class ligo_bilby_pe_fetch:
         plt.ylabel('reconstructed log  likelihood')
         plt.xlabel('PE original likelihood')
         plt.grid(True)
-        plt.savefig('ReproducePE_diagnostics.png')    
+        # save the output
+        output_folder='PE_diagnostics'
+        os.makedirs(output_folder, exist_ok=True)
+        plt.savefig(f"{output_folder}/ReproducePE_{self.label}_diagnostics.png")    
         text='Passed'
         if np.mean(np.abs(ll_test-ll_original))> 0.1:
             text='Failed'
         print(f"diagnostics {text}: mean dlogL = {np.mean(np.abs(ll_test-ll_original))}, the max dlogL = {round(np.max(np.abs(ll_test-ll_original)),2)}.  created ReproducePE_diagnostics.png")
-
-                
+        if text=='Passed':
+            self.diag_res= True 
+        else:
+            self.diag_res= False        
 
 
 

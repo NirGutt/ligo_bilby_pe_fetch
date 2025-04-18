@@ -45,4 +45,4 @@ run_diagnostics_samples (int)   – Number of posterior samples used for diagnos
   → Returns the likelihood function for the analysis.
 
 - `RPE.get_diagnostics_result()`  
-  → Returns diagnostics for the run (e.g. comparison between prior and posterior).
+  → Returns the diagnostics result for the PE (i.e. comparison between the fetched likelihood values and the ones stored in the file).
